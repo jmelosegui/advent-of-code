@@ -5,6 +5,58 @@ namespace AdventOfCode2024;
 [Challenge(Name = "Day05")]
 public class Day05Challenge : Challenge
 {
+    public override long Solution1(string inputFilePath)
+    {
+        var (rules, updates) = ParseInput(inputFilePath);
+        int result = 0;
+        foreach (var update in updates)
+        {
+            bool isValid = true;
+            for (var i = update.Count - 1; i >= 0; i--)
+            {
+                if (rules.TryGetValue(update[i], out var set))
+                {
+                    if (set.Overlaps(update[0..i]))
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+            }
+
+            if (isValid)
+            {
+                result += update[update.Count / 2];
+            }
+        }
+
+        return result;
+    }
+
+    public override long Solution2(string inputFilePath)
+    {
+        var (rules, updates) = ParseInput(inputFilePath);
+        var com = new PageComparer(rules);
+        int result = 0;
+        foreach (var update in updates)
+        {
+            for (var i = update.Count - 1; i >= 0; i--)
+            {
+                if (rules.TryGetValue(update[i], out var set))
+                {
+                    if (set.Overlaps(update[0..i]))
+                    {
+                        update.Sort(com);
+                        result += update[update.Count / 2];
+                        break;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
     private (Dictionary<int, HashSet<int>>, IEnumerable<List<int>>) ParseInput(string inputFilePath)
     {
         Dictionary<int, HashSet<int>> rules = new Dictionary<int, HashSet<int>>();
@@ -36,58 +88,6 @@ public class Day05Challenge : Challenge
         }
 
         return (rules, updates);
-    }
-
-    public override int Solution1(string inputFilePath)
-    {
-        var (rules, updates) = ParseInput(inputFilePath);
-        int result = 0;
-        foreach (var update in updates)
-        {
-            bool isValid = true;
-            for (var i = update.Count - 1; i >= 0; i--)
-            {
-                if (rules.TryGetValue(update[i], out var set))
-                {
-                    if (set.Overlaps(update[0..i]))
-                    {
-                        isValid = false;
-                        break;
-                    }
-                }
-            }
-
-            if (isValid)
-            {
-                result += update[update.Count / 2];
-            }
-        }
-
-        return result;
-    }
-
-    public override int Solution2(string inputFilePath)
-    {
-        var (rules, updates) = ParseInput(inputFilePath);
-        var com = new PageComparer(rules);
-        int result = 0;
-        foreach (var update in updates)
-        {
-            for (var i = update.Count - 1; i >= 0; i--)
-            {
-                if (rules.TryGetValue(update[i], out var set))
-                {
-                    if (set.Overlaps(update[0..i]))
-                    {
-                        update.Sort(com);
-                        result += update[update.Count / 2];
-                        break;
-                    }
-                }
-            }
-        }
-
-        return result;
     }
 
     private class PageComparer : IComparer<int>

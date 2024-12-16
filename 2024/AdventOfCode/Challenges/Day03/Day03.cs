@@ -9,7 +9,7 @@ public partial class Day03Challenge : Challenge
     [GeneratedRegex(@"mul\((?<left>\d{1,3}),(?<right>\d{1,3})\)")]
     private static partial Regex Multiply();
     
-    public override int Solution1(string inputPath)
+    public override long Solution1(string inputPath)
     {
         string input = File.ReadAllText(inputPath);
         MatchCollection matches = Multiply().Matches(input);
@@ -31,7 +31,7 @@ public partial class Day03Challenge : Challenge
     [GeneratedRegex(@"mul\((?<left>\d{1,3}),(?<right>\d{1,3})\)|do\(\)|don't\(\)")]
     private static partial Regex DosAndDonts();
     
-    public override int Solution2(string inputPath)
+    public override long Solution2(string inputPath)
     {
         string input = File.ReadAllText(inputPath);
         var matches = DosAndDonts().Matches(input);

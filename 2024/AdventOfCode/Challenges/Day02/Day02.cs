@@ -6,7 +6,7 @@ namespace AdventOfCode2024.Day1.Problem1;
 [Challenge(Name = "Day02")]
 public class Day02Challenge : Challenge 
 {
-    public override int Solution1(string inputFilePath)
+    public override long Solution1(string inputFilePath)
     {
         var reports = ParseInput(inputFilePath);
 
@@ -22,7 +22,7 @@ public class Day02Challenge : Challenge
         return safeReports;
     }
     
-    public override int Solution2(string inputFilePath)
+    public override long Solution2(string inputFilePath)
     {
         var reports = ParseInput(inputFilePath);
 

@@ -5,7 +5,7 @@ namespace AdventOfCode2024.Day1.Problem1;
 [Challenge(Name = "Day04")]
 public class Day04Challenge : Challenge
 {
-    public override int Solution1(string inputPath)
+    public override long Solution1(string inputPath)
     {
         string[] input = File.ReadAllLines(inputPath);
 
@@ -44,7 +44,7 @@ public class Day04Challenge : Challenge
         return count;
     }
 
-    public override int Solution2(string inputPath)
+    public override long Solution2(string inputPath)
     {
         string[] input = File.ReadAllLines(inputPath);
 
